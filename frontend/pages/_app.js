@@ -1,10 +1,11 @@
 import React from "react";
 import Head from "next/head";
+import withData from "../lib/apollo";
 
 import Layout from "../components/Layout/index";
 import GlobalStyle from "../styles/global";
 
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <GlobalStyle />
@@ -23,4 +24,6 @@ export default function MyApp({ Component, pageProps }) {
       </Layout>
     </>
   );
-}
+};
+
+export default withData(MyApp);
