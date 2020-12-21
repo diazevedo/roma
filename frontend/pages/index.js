@@ -1,13 +1,7 @@
 import styled from "styled-components";
 
-import Layout from "../components/Layout/index";
-
 export default function Main() {
-  return (
-    <Layout>
-      <Title>My page</Title>
-    </Layout>
-  );
+  return <Title>My page</Title>;
 }
 
 const Title = styled.h1``;

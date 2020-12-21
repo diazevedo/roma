@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
-// import { createGlobalStyle, ThemeProvider } from "styled-components";
+
+import Layout from "../components/Layout/index";
 import GlobalStyle from "../styles/global";
 
 export default function MyApp({ Component, pageProps }) {
@@ -17,8 +18,9 @@ export default function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

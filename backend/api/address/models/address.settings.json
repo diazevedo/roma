@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "name": "address"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "street": {
+      "type": "string"
+    },
+    "complement": {
+      "type": "string"
+    },
+    "number": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "clients": {
+      "collection": "clients",
+      "via": "addresses",
+      "dominant": true
+    }
+  }
+}
