@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "addresses",
   "info": {
-    "name": "address"
+    "name": "address",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,10 +23,9 @@
     "unit": {
       "type": "string"
     },
-    "clients": {
-      "collection": "clients",
-      "via": "addresses",
-      "dominant": true
+    "client": {
+      "model": "clients",
+      "via": "addresses"
     }
   }
 }
