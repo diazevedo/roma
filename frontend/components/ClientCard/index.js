@@ -23,11 +23,15 @@ const ClientCard = ({ id }) => {
     variables: { id: router.query.id },
   });
 
-  if (error) return "Error Loading Dishes";
-
-  if (data.clients && data.clients.length) {
+  if (error) return <h1>Erro ao carregar os dados do cliente</h1>;
+  console.log({ data, id: router.query.id });
+  if (data && data.clients && data.clients.length) {
     const { clients } = data;
     return <h1>{clients[0].first_name}</h1>;
+  }
+
+  if (loading) {
+    return <h1>carregando dados do cliente</h1>;
   }
 };
 
