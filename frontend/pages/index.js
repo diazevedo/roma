@@ -13,7 +13,7 @@ export default function Main() {
         value={query}
         onChange={(e) => updateQuery(e.target.value.toLocaleLowerCase())}
       />
-      <ClientList search={query}></ClientList>
+      <ClientList search={query} />
     </div>
   );
 }
