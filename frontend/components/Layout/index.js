@@ -1,33 +1,53 @@
 import React from "react";
 import Link from "next/link";
+import { Menu, Container } from "semantic-ui-react";
 
-export default function Layout({ children }) {
+import * as S from "./styles";
+
+const styles = {
+  container: {
+    height: "100%",
+    width: "100%",
+    padding: "20px",
+  },
+};
+
+const Layout = ({ children }) => {
+  const [activeItem, setActiveItem] = React.useState();
+
+  const handleClick = (event) =>
+    setActiveItem(event.target.getAttribute("custom_name"));
+
   return (
-    <>
-      <header>
-        <div className="navbar navbar-dark bg-dark">
-          <li>
+    <Container style={styles.container}>
+      <S.Header>
+        <nav>
+          <Menu>
+            <Menu.Item header>Roma</Menu.Item>
             <Link href="/">
-              <a className="navbar-brand">Home</a>
+              <Menu.Item
+                name="home"
+                custom_name="home"
+                active={activeItem === "home"}
+                onClick={(e) => handleClick(e)}
+              ></Menu.Item>
             </Link>
-          </li>
-
-          <li className="ml-auto">
             <Link href="/signin">
-              <a className="nav-link">Sign In</a>
+              <Menu.Item
+                name="signin"
+                custom_name="signin"
+                onClick={(e) => handleClick(e)}
+                active={activeItem === "signin"}
+              >
+                Sign In
+              </Menu.Item>
             </Link>
-          </li>
-
-          <li>
-            <Link href="/signup">
-              <a className="nav-link"> Sign Up</a>
-            </Link>
-          </li>
-        </div>
-      </header>
-      <div>{children}</div>
-    </>
+          </Menu>
+        </nav>
+      </S.Header>
+      <S.Main>{children}</S.Main>
+    </Container>
   );
-}
+};
 
-// export default Layout;
+export default Layout;

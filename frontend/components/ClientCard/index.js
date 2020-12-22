@@ -25,8 +25,6 @@ const ClientCard = ({ id }) => {
 
   if (error) return "Error Loading Dishes";
 
-  if (loading) return <h1>Loading ...</h1>;
-
   if (data.clients && data.clients.length) {
     const { clients } = data;
     return <h1>{clients[0].first_name}</h1>;
