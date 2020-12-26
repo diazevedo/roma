@@ -2,16 +2,11 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
+  padding-bottom: 20px;
 `;
 
 export const Main = styled.main`
-  width: 80%;
-  height: 90%;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid #000;
+  height: auto;
 `;

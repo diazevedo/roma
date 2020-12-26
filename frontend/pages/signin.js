@@ -25,21 +25,15 @@ const SignIn = () => {
   const submitForm = async () => {
     setLoading(true);
     const responseLogin = await login(data.identifier, data.password);
+
     if (responseLogin.user) {
       appContext.setUser(responseLogin.user);
       router.push("/");
-    } // redirect if you're already logged in
+    }
 
     setError("not logged");
     setLoading(false);
   };
-  useEffect(() => {
-    console.log({ appContext, text: "Sign" });
-    // console.log(appContext.isAuthenticated);
-    if (appContext.isAuthenticated) {
-      router.push("/"); // redirect if you're already logged in
-    }
-  }, []);
 
   return (
     <>
