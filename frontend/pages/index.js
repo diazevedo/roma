@@ -2,15 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { GET_ALL_CLIENTS } from "../utils/queries/clients";
 
-import { Loader, Dimmer, Image, Segment } from "semantic-ui-react";
-
 import client from "../services/apolloClient";
 
 import ClientList from "../components/ClientsList";
 import { Input, Header } from "semantic-ui-react";
 import { useRouter } from "next/router";
 
-export default function Main({ data }) {
+export default function Main({ data = [] }) {
   const router = useRouter();
   const [clients, setClients] = React.useState(data || []);
 
@@ -35,7 +33,7 @@ export default function Main({ data }) {
         type="number"
         onChange={(e) => clientsFiltered(e)}
       />
-      <ClientList data={clients} />
+      {/* <ClientList data={clients} /> */}
     </Container>
   );
 }
@@ -48,12 +46,12 @@ const Container = styled.div`
   padding: 20px 0;
 `;
 
-export async function getServerSideProps(context) {
-  const result = await client.query({ query: GET_ALL_CLIENTS });
+// export async function getServerSideProps(context) {
+//   const result = await client.query({ query: GET_ALL_CLIENTS });
 
-  console.log({ static: result.data });
+//   console.log({ static: result.data });
 
-  return {
-    props: { data: result.data.clients },
-  };
-}
+//   return {
+//     props: { data: result.data.clients },
+//   };
+// }
