@@ -14,11 +14,6 @@ export default function Main({ data }) {
   const router = useRouter();
   const [clients, setClients] = React.useState(data || []);
 
-  React.useEffect(() => {
-    console.log("router");
-    router.replace(router.asPath);
-  }, []);
-
   const clientsFiltered = (e) => {
     const textSearched = e.target.value.toLocaleLowerCase();
 

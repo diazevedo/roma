@@ -20,8 +20,8 @@
     "phone": {
       "type": "string"
     },
-    "addresses": {
-      "collection": "address"
+    "address": {
+      "model": "address"
     }
   }
 }
