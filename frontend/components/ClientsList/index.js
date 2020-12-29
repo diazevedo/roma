@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 
 const ClientList = ({ data }) => {
+  console.log({ data });
   if (data.length) {
     return (
       <List divided selection verticalAlign="middle">
@@ -22,8 +23,8 @@ const ClientList = ({ data }) => {
               <List.Header style={{ marginBottom: "10px" }}>
                 {client.first_name} {client.surname}
               </List.Header>
-              {client.addresses.length > 0
-                ? `${client.addresses[0].number}, ${client.addresses[0].street}`
+              {client.address
+                ? `${client.address.number}, ${client.address.street}`
                 : "nao tem"}
 
               <span style={{ display: "block", marginTop: "10px" }}>

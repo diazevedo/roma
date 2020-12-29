@@ -7,7 +7,7 @@ export const GET_ALL_CLIENTS = gql`
       first_name
       surname
       phone
-      addresses {
+      address {
         id
         street
         number
@@ -24,7 +24,7 @@ export const GET_CLIENT = gql`
       first_name
       surname
       phone
-      addresses {
+      address {
         id
         street
         number

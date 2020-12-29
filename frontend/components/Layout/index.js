@@ -48,6 +48,15 @@ const Layout = ({ children }) => {
                   Log out
                 </Menu.Item>
               </Link>
+
+              <Link href="/client/register">
+                <Menu.Item
+                  name="new client"
+                  custom_name="register"
+                  onClick={(e) => handleClick(e)}
+                  active={activeItem === "register"}
+                />
+              </Link>
             </Menu>
           </nav>
         </S.Header>

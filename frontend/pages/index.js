@@ -8,33 +8,16 @@ import client from "../services/apolloClient";
 
 import ClientList from "../components/ClientsList";
 import { Input, Header } from "semantic-ui-react";
-/*
-if (loading)
-return (
-  <Segment>
-    <Dimmer active inverted>
-      <Loader size="large">Loading</Loader>
-    </Dimmer>
-
-    <Image
-      size="small"
-      src="https://react.semantic-ui.com/images/wireframe/media-paragraph.png"
-    />
-    <Image
-      size="small"
-      style={{ marginTop: "10px" }}
-      src="https://react.semantic-ui.com/images/wireframe/media-paragraph.png"
-    />
-    <Image
-      size="small"
-      style={{ marginTop: "10px" }}
-      src="https://react.semantic-ui.com/images/wireframe/media-paragraph.png"
-    />
-  </Segment>
-);*/
+import { useRouter } from "next/router";
 
 export default function Main({ data }) {
+  const router = useRouter();
   const [clients, setClients] = React.useState(data || []);
+
+  React.useEffect(() => {
+    console.log("router");
+    router.replace(router.asPath);
+  }, []);
 
   const clientsFiltered = (e) => {
     const textSearched = e.target.value.toLocaleLowerCase();

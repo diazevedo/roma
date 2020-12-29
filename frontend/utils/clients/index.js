@@ -1,16 +1,19 @@
 export const prepareData = (clientData) => {
-  const { addresses = {} } = clientData;
+  const { address = {} } = clientData;
 
-  const address = addresses.length > 0 ? addresses[0] : {};
+  const clienteAddress = address ? address : {};
 
-  return {
+  const prepared = {
     id: clientData.id || "",
     first_name: clientData.first_name || "",
     surname: clientData.surname || "",
     phone: clientData.phone || "",
-    street: address.street || "",
-    number: address.number || "",
-    complement: address.complement || "",
-    address_id: address.id || "",
+    street: clienteAddress.street || "",
+    number: clienteAddress.number || "",
+    complement: clienteAddress.complement || "",
+    address_id: clienteAddress.id || "",
   };
+
+  console.log({ prepared });
+  return prepared;
 };

@@ -4,36 +4,25 @@ import axios from "axios";
 import { Form, Button, Message } from "semantic-ui-react";
 
 import CustomForm from "../CustomForm";
-import { updateAddress } from "../../utils/api/addresses";
-import { updateClient } from "../../utils/api/clients";
 import { prepareData } from "../../utils/clients";
 
-const ClientCard = ({ clientData, loading }) => {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
-  const [error, setError] = React.useState(false);
+const ClientPageForm = ({
+  clientData,
+  loading,
+  submit = () => {},
+  success,
+  error,
+}) => {
   const [loadingSaving, setLoadingSaving] = React.useState(false);
 
-  const [client, setClient] = React.useState(prepareData(clientData));
+  const [client, setClient] = React.useState(clientData);
 
-  const handleClickButtonEdit = async (e) => {
-    setSuccess(false);
-    setError(false);
+  console.log("Form", { client });
+
+  const handleSubmit = async () => {
     setLoadingSaving(true);
-
-    if (isEditing) {
-      try {
-        await axios.all([updateClient(client), updateAddress(client)]);
-
-        setSuccess(true);
-      } catch (error) {
-        setError(true);
-      }
-    }
-
+    await submit(client);
     setLoadingSaving(false);
-
-    setIsEditing((prevState) => !prevState);
   };
 
   return (
@@ -42,7 +31,6 @@ const ClientCard = ({ clientData, loading }) => {
         loading={loading || loadingSaving}
         success={success}
         error={error}
-        disabled={!isEditing}
       >
         <Message
           success
@@ -118,11 +106,9 @@ const ClientCard = ({ clientData, loading }) => {
         </Form.Group>
       </CustomForm>
 
-      <Button onClick={(e) => handleClickButtonEdit(e)}>
-        {isEditing ? "Save" : "Edit"}
-      </Button>
+      <Button onClick={() => handleSubmit()}>Save</Button>
     </>
   );
 };
 
-export default ClientCard;
+export default ClientPageForm;
