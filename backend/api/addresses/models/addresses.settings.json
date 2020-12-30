@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "addresses",
   "info": {
-    "name": "address",
+    "name": "addresses",
     "description": ""
   },
   "options": {
@@ -14,14 +14,18 @@
     "street": {
       "type": "string"
     },
-    "complement": {
+    "unit": {
       "type": "string"
     },
     "number": {
       "type": "string"
     },
-    "unit": {
+    "complement": {
       "type": "string"
+    },
+    "client": {
+      "model": "clients",
+      "via": "address"
     }
   }
 }
