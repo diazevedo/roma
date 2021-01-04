@@ -4,6 +4,8 @@ import { Menu, Container } from "semantic-ui-react";
 
 import AppContext from "../../context/AppContext";
 
+import { logout } from "../../lib/auth";
+
 import * as S from "./styles";
 
 const styles = {
@@ -17,10 +19,15 @@ const styles = {
 const Layout = ({ children }) => {
   const [activeItem, setActiveItem] = React.useState();
 
-  const { isAuthenticated } = React.useContext(AppContext);
+  const { isAuthenticated, setUser } = React.useContext(AppContext);
 
   const handleClick = (event) =>
     setActiveItem(event.target.getAttribute("custom_name"));
+
+  const handleLogOut = () => {
+    setUser(null);
+    logout();
+  };
 
   return (
     <Container style={styles.container}>
@@ -38,16 +45,14 @@ const Layout = ({ children }) => {
                 />
               </Link>
 
-              <Link href="/logout">
-                <Menu.Item
-                  name="logout"
-                  custom_name="logout"
-                  onClick={(e) => handleClick(e)}
-                  active={activeItem === "logout"}
-                >
-                  Log out
-                </Menu.Item>
-              </Link>
+              <Menu.Item
+                name="logout"
+                custom_name="logout"
+                onClick={() => handleLogOut()}
+                active={activeItem === "logout"}
+              >
+                Log out
+              </Menu.Item>
 
               <Link href="/client/register">
                 <Menu.Item

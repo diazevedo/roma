@@ -1,5 +1,8 @@
 import { HttpLink } from "apollo-link-http";
 import { withData } from "next-apollo";
+import Cookie from "js-cookie";
+
+const token = Cookie.get("token");
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
 
@@ -9,6 +12,7 @@ const config = {
     opt: {
       credentials: "same-origin",
     },
+    headers: { authorization: `Bearer ${token}` },
   }),
 };
 

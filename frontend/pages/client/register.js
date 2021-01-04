@@ -1,10 +1,11 @@
+import Cookie from "js-cookie";
 import { useState } from "react";
 import { Header } from "semantic-ui-react";
-import Cookie from "js-cookie";
+
 import ClientPageForm from "../../components/ClientPageForm/";
 
-import { createAddress } from "../../utils/api/addresses";
 import { createClient } from "../../utils/api/clients";
+import { createAddress } from "../../utils/api/addresses";
 
 import styled from "styled-components";
 
@@ -24,12 +25,10 @@ export default function Register() {
         token,
       };
 
-      const clienteResponse = await createClient(dataClient);
+      await createClient(dataClient);
 
-      console.log({ clienteResponse, responseAddress });
       setSuccess(true);
     } catch (error) {
-      console.log(error);
       setError(true);
     }
   };

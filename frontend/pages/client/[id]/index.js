@@ -1,41 +1,40 @@
+import axios from "axios";
+import Cookie from "js-cookie";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { Header } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
-import { useRouter } from "next/router";
+
 import ClientPageForm from "../../../components/ClientPageForm/";
 
-import { updateAddress } from "../../../utils/api/addresses";
 import { updateClient } from "../../../utils/api/clients";
-
 import { GET_CLIENT } from "../../../utils/queries/clients";
+import { updateAddress } from "../../../utils/api/addresses";
 
 import styled from "styled-components";
 
-export default function Clients() {
+export default function Clients({ client }) {
   const router = useRouter();
-  console.log("uopdate");
+  const token = Cookie.get("token");
+
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const { loading, errorRequest, data } = useQuery(GET_CLIENT, {
     variables: { id: router.query.id },
   });
-  console.log("uopdate", { data });
+  const submit = async (client) => {
+    const clientData = { ...client, token };
 
-  const submit = async () => {
     setSuccess(false);
     setError(false);
-    setLoadingSaving(true);
 
     try {
-      await axios.all([updateClient(client), updateAddress(client)]);
-
+      await axios.all([updateClient(clientData), updateAddress(clientData)]);
       setSuccess(true);
     } catch (errorResponse) {
       setError(true);
     }
-
-    setLoadingSaving(false);
   };
 
   return (
@@ -43,20 +42,17 @@ export default function Clients() {
       <Header as="h1" textAlign="center">
         Dados do cliente
       </Header>
-
-      {loading && <Header as="h3">carregando dados do cliente</Header>}
-
-      {errorRequest && (
-        <Header as="h3">Erro ao carregar os dados do cliente</Header>
+      {loading ? (
+        <h1>Carregando Dados do cliente</h1>
+      ) : (
+        <ClientPageForm
+          clientData={data.clients[0]}
+          loading={loading}
+          submit={submit}
+          success={success}
+          error={error}
+        />
       )}
-
-      <ClientPageForm
-        clientData={(data && data.clients[0]) || {}}
-        loading={loading}
-        submit={submit}
-        success={success}
-        error={error}
-      />
     </Container>
   );
 }

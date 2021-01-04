@@ -3,9 +3,8 @@
 import { useEffect } from "react";
 import Router from "next/router";
 import Cookie from "js-cookie";
-import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+import api from "../services/api";
 
 export const login = async (identifier, password) => {
   //prevent function from being ran on the server
@@ -18,14 +17,12 @@ export const login = async (identifier, password) => {
   };
 
   try {
-    const response = await axios.post(`${API_URL}/auth/local/`, {
+    const response = await api.post(`/auth/local/`, {
       identifier,
       password,
     });
 
     Cookie.set("token", response.data.jwt);
-    console.log(Cookie.get("token"));
-
     dataReturn.user = response.data.user;
     return dataReturn;
   } catch (error) {
@@ -40,7 +37,8 @@ export const logout = () => {
   // sync logout between multiple windows
   window.localStorage.setItem("logout", Date.now());
   //redirect to the home page
-  Router.push("/");
+
+  Router.push("/signin");
 };
 
 //Higher Order Component to wrap our pages and logout simultaneously logged in tabs
@@ -49,7 +47,7 @@ export const withAuthSync = (Component) => {
   const Wrapper = (props) => {
     const syncLogout = (event) => {
       if (event.key === "logout") {
-        Router.push("/login");
+        Router.push("/signin");
       }
     };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { Header } from "semantic-ui-react";
 
@@ -15,6 +15,7 @@ const SignIn = () => {
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const router = useRouter();
   const appContext = useContext(AppContext);
 
@@ -24,22 +25,29 @@ const SignIn = () => {
 
   const submitForm = async () => {
     setLoading(true);
+
     const responseLogin = await login(data.identifier, data.password);
 
     if (responseLogin.user) {
       appContext.setUser(responseLogin.user);
+
       router.push("/");
     }
 
-    setError("not logged");
     setLoading(false);
+    setError(true);
   };
 
   return (
-    <>
+    <div className="wrapper-signin">
       <Header as="h3" content="Sign in" style={style.h3} textAlign="center" />
-      <Form onChange={handleButtonLoginClick} submit={submitForm}></Form>
-    </>
+      <Form
+        onChange={handleButtonLoginClick}
+        submit={submitForm}
+        loading={loading}
+        error={error}
+      />
+    </div>
   );
 };
 

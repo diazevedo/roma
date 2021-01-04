@@ -1,6 +1,6 @@
 /* /pages/restaurants.js */
 import React from "react";
-import axios from "axios";
+
 import { Form, Button, Message } from "semantic-ui-react";
 
 import CustomForm from "../CustomForm";
@@ -14,10 +14,7 @@ const ClientPageForm = ({
   error,
 }) => {
   const [loadingSaving, setLoadingSaving] = React.useState(false);
-
-  const [client, setClient] = React.useState(clientData);
-
-  console.log("Form", { client });
+  const [client, setClient] = React.useState(prepareData(clientData));
 
   const handleSubmit = async () => {
     setLoadingSaving(true);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, Label } from "semantic-ui-react";
+import { Button, Form, Input, Message } from "semantic-ui-react";
 
 const style = {
   form: {
@@ -12,8 +12,19 @@ const style = {
   },
 };
 
-const FormWrapper = ({ onChange, submit }) => (
-  <Form style={style.form} onSubmit={() => submit()}>
+const FormWrapper = ({ onChange, submit, loading = false, error = false }) => (
+  <Form
+    style={style.form}
+    onSubmit={() => submit()}
+    loading={loading}
+    error={error}
+  >
+    <Message
+      error
+      header="Wrong details"
+      content="Sorry, the provided details do not match."
+    />
+
     <Form.Field>
       <label style={style.label}>Email</label>
       <Input

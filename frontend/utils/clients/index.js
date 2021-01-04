@@ -14,6 +14,5 @@ export const prepareData = (clientData) => {
     address_id: clienteAddress.id || "",
   };
 
-  console.log({ prepared });
   return prepared;
 };

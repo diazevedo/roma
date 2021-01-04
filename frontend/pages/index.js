@@ -1,25 +1,22 @@
 import React from "react";
+// import axios from "axios";
+import api from "../services/api";
 import styled from "styled-components";
-import { GET_ALL_CLIENTS } from "../utils/queries/clients";
-
-import client from "../services/apolloClient";
+import { Input, Header } from "semantic-ui-react";
 
 import ClientList from "../components/ClientsList";
-import { Input, Header } from "semantic-ui-react";
-import { useRouter } from "next/router";
 
-export default function Main({ data = [] }) {
-  const router = useRouter();
-  const [clients, setClients] = React.useState(data || []);
+export default function Main({ clientsData }) {
+  const [clients, setClients] = React.useState(clientsData);
 
   const clientsFiltered = (e) => {
     const textSearched = e.target.value.toLocaleLowerCase();
 
-    const filtered = data.filter((c) =>
+    const clientsFiltered = clientsData.filter((c) =>
       c.phone.toLowerCase().includes(textSearched)
     );
 
-    setClients(filtered);
+    setClients(clientsFiltered);
   };
 
   return (
@@ -27,13 +24,15 @@ export default function Main({ data = [] }) {
       <Header textAlign="center" as="h3">
         Procurar Cliente
       </Header>
+
       <Input
         icon="search"
         placeholder="telefone"
         type="number"
         onChange={(e) => clientsFiltered(e)}
       />
-      {/* <ClientList data={clients} /> */}
+
+      <ClientList data={clients} />
     </Container>
   );
 }
@@ -46,12 +45,44 @@ const Container = styled.div`
   padding: 20px 0;
 `;
 
-// export async function getServerSideProps(context) {
-//   const result = await client.query({ query: GET_ALL_CLIENTS });
+export async function getServerSideProps(context) {
+  const token = getToken(context);
 
-//   console.log({ static: result.data });
+  if (token.length === 0) {
+    return redirectToLogin(context);
+  }
 
-//   return {
-//     props: { data: result.data.clients },
-//   };
-// }
+  let data = [];
+  try {
+    const result = await api.get(`/clients`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    data = result.data;
+  } catch (error) {
+    return redirectToLogin(context);
+  }
+
+  return {
+    props: {
+      clientsData: data,
+    },
+  };
+}
+
+const redirectToLogin = (context) => {
+  context.res.writeHead(302, { Location: "signin" });
+  context.res.end();
+
+  return { props: {} };
+};
+
+const getToken = (context) => {
+  const [, token] = context.req.headers.cookie
+    ? context.req.headers.cookie.split("=")
+    : ["", ""];
+
+  return token;
+};
