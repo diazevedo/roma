@@ -1,5 +1,4 @@
 import React from "react";
-// import axios from "axios";
 import api from "../services/api";
 import styled from "styled-components";
 import { Input, Header } from "semantic-ui-react";
@@ -48,9 +47,7 @@ const Container = styled.div`
 export async function getServerSideProps(context) {
   const token = getToken(context);
 
-  if (token.length === 0) {
-    return redirectToLogin(context);
-  }
+  if (token.length === 0) return redirectToLogin(context);
 
   let data = [];
   try {

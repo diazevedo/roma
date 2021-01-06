@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Header } from "semantic-ui-react";
 
@@ -25,17 +25,19 @@ const SignIn = () => {
 
   const submitForm = async () => {
     setLoading(true);
+    setError(false);
 
     const responseLogin = await login(data.identifier, data.password);
 
     if (responseLogin.user) {
       appContext.setUser(responseLogin.user);
-
       router.push("/");
+      setLoading(false);
+      return;
+    } else {
+      setError(true);
+      setLoading(false);
     }
-
-    setLoading(false);
-    setError(true);
   };
 
   return (

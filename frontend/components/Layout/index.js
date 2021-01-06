@@ -45,15 +45,6 @@ const Layout = ({ children }) => {
                 />
               </Link>
 
-              <Menu.Item
-                name="logout"
-                custom_name="logout"
-                onClick={() => handleLogOut()}
-                active={activeItem === "logout"}
-              >
-                Log out
-              </Menu.Item>
-
               <Link href="/client/register">
                 <Menu.Item
                   name="new client"
@@ -62,6 +53,15 @@ const Layout = ({ children }) => {
                   active={activeItem === "register"}
                 />
               </Link>
+
+              <Menu.Item
+                name="logout"
+                custom_name="logout"
+                onClick={() => handleLogOut()}
+                active={activeItem === "logout"}
+              >
+                Log out
+              </Menu.Item>
             </Menu>
           </nav>
         </S.Header>

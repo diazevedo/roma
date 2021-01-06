@@ -30,13 +30,12 @@ const MyApp = ({ Component, pageProps }) => {
           }
         );
 
-        if (Component.name === "SignIn") {
+        const user = response.data;
+        setUser(user);
+
+        if (Component.name === "SignIn" && user) {
           router.push("/");
         }
-
-        const user = response.data;
-
-        setUser(user);
       } catch (error) {
         Cookie.remove("token");
         setUser(null);
@@ -45,7 +44,11 @@ const MyApp = ({ Component, pageProps }) => {
       }
     };
 
-    auth();
+    if (!token) {
+      router.push("/signin");
+    } else {
+      auth();
+    }
   }, [Component]);
 
   return (

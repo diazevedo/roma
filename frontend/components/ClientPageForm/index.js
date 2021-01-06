@@ -1,4 +1,3 @@
-/* /pages/restaurants.js */
 import React from "react";
 
 import { Form, Button, Message } from "semantic-ui-react";
@@ -31,20 +30,16 @@ const ClientPageForm = ({
       >
         <Message
           success
-          header="It's all good"
-          content="The client has been updated."
+          header="Sucesso"
+          content="Cliente atualizado com sucesso."
         />
-        <Message
-          error
-          header="The update has failed"
-          content="Sorry, an error has occurred."
-        />
+        <Message error header="Erro" content="Desculpe, aconteceu um erro." />
 
         <Form.Group widths="equal">
           <Form.Input
             fluid
             name="first_name"
-            label="First name"
+            label="Primeiro nome"
             placeholder="First name"
             value={client.first_name}
             onChange={(e) =>
@@ -54,7 +49,7 @@ const ClientPageForm = ({
           <Form.Input
             fluid
             name="surname"
-            label="Surname"
+            label="Sobrenome"
             placeholder="Surname"
             value={client.surname}
             onChange={(e) => setClient({ ...client, surname: e.target.value })}
@@ -64,7 +59,7 @@ const ClientPageForm = ({
           <Form.Input
             fluid
             name="phone"
-            label="Phone"
+            label="Telefone"
             placeholder="Phone"
             onChange={(e) => handleInput(e)}
             value={client.phone}
@@ -75,8 +70,8 @@ const ClientPageForm = ({
           <Form.Input
             fluid
             name="street"
-            label="Street"
-            placeholder="street name"
+            label="Rua/Avenida"
+            placeholder="nome da rua"
             value={client.street}
             onChange={(e) => setClient({ ...client, street: e.target.value })}
           />
@@ -85,15 +80,15 @@ const ClientPageForm = ({
           <Form.Input
             fluid
             name="number"
-            label="Number"
-            placeholder="numero"
+            label="Número"
+            placeholder="13"
             value={client.number}
             onChange={(e) => setClient({ ...client, number: e.target.value })}
           />
           <Form.Input
             fluid
             name="complement"
-            label="Complement"
+            label="Complemento"
             placeholder="Complement"
             value={client.complement}
             onChange={(e) =>
